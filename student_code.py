@@ -34,32 +34,41 @@ def buildFeatureStatement(tree):
     print("Stubbed out version of buildFeatureStatement")
     # As with core.buildExistentials, we want to get out the ROOT and the primary NOUN. But here, the noun will
     # the subject. You call languageTools.extractRoot on the parse tree
-
+    print('hi !!')
+    print(tree)
+    root = languageTools.extractRoot(tree)
+    print(root)
  ##### Your code to extractRoot here
 
     # To get the subject of a verb, we use languageTools.extractSubject on the ROOT
 
 ##### Your code to extractSubject here
-
+    subject = languageTools.extractSubject(root)
+    print('here !!')
+    print(subject)
     # Once we have the primary noun, we then want to resolve it, that is, figure out what it refers
     # to using core.resolveObjectFOPC. Resolve object will give us a list of names that are referred to by the
     # words in the text.  They will always be names of existings objects. You need the names for the
     # other functions
 
 ##### Your code to resolveObjectFOPC here -- this will build some FOPC and Assert it
-
+    reference_names = core.resolveObjectFOPC(subject)
+    print('names !!!')
+    print(reference_names)
     # Then we need to figure out what is going to modify it. To do this, we go back to our verb and for
     # any modifiers associted with it. These will either be prepositional phrases or adjectives.
 
     # To get the prepositional phrases, we can use core.findAndAttachPrepObjectsFOPC that takes the ROOT and
     # the names and will build any FOPC associated with prepositional objects it finds and assert it.
+    core.findAndAttachPrepObjectsFOPC(root,subject,reference_names)
 
 ##### Your code to resolveObjectFOPC here -- this takes the root, the primary (suibject) and your names
 
     # Next we pull out any features associated with the object and attach them to the object. We can use
     # core.findAndAssertFeaturesFOPC to do this.  Like core.findAndAttachPrepObjectsFOPC, it takes the ROOT and
     # a list of names and builds the FOPC associated with any adjectives it finds
+    core.findAndAssertFeaturesFOPC(root,reference_names)
 
 ##### Your code to findAndAssertFeaturesFOPC here -- this takes the root and your names
-
+    core.findAndAssertDefinitionsFOPC(root,reference_names)
 ##### Your code to findAndAssertDefinitionsFOPC -- this takes the root and your names
